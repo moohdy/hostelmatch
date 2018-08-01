@@ -1,0 +1,54 @@
+{% load hostels_tags %}
+{%load staticfiles %}
+
+{% block content_latest %}
+    <!-- this page shows the latest houses i.e the latest addition of houses to the database it uses a custom tag latest_houses
+    from homes_tag module-->
+    <!-- Courses -->
+	<div id="courses" class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-8 offset-md-2 text-center">
+					<div class="section-header text-center">
+						<h2>Explore Hostels</h2>
+						<p class="lead">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
+					</div>
+				</div>
+			</div>
+			<!-- /row -->
+			<!-- courses -->
+			<div id="courses-wrapper">
+				<!-- row -->
+				<div class="row">
+					<!-- single course -->
+					{%for hostel in latest_hostels %}
+						<div class="col-md-3 col-sm-6 col-6">
+							<div class="course">
+								<a href="{{ hostel.get_absolute_url }}" class="course-img">
+									<img src="{{ hostel.image1.url }}">
+									<i class="course-link-icon fa fa-link"></i>
+								</a>
+								<a class="course-title" href="{{ hostel.get_absolute_url }}">{{ hostel.title }}</a>
+								<div class="course-details">
+									<span class="course-category">{{ hostel.location }}</span>
+									<span class="course-price course-free">Vacant</span>
+								</div>
+							</div>
+						</div>
+						<!-- /single course -->
+					{% endfor %}
+		        </div>
+				<!-- /courses -->
+				<div class="row">
+					<div class="col-md-8 offset-md-2 text-center">
+						<div class="center-btn">
+							<a class="main-button icon-button" href="#">More Courses</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

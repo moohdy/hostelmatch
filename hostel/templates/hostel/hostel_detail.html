@@ -1,0 +1,68 @@
+{% extends "/hostel/hostel.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ hostel.title }}{% endblock %}
+
+{% block content_banner %}
+    <!-- Hero-area -->
+	<div class="hero-area section">
+		<!-- Backgound Image -->
+		<div class="bg-image bg-parallax overlay" style="background-image:url(/static/img/blog-post-background.jpg)"></div>
+		<!-- /Backgound Image -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 offset-md-1 text-center">
+					<ul class="hero-area-tree">
+						<li><a href="#">Home</a></li>
+						<li><a href="#">Blog</a></li>
+						<li>How to Get Started in Photography</li>
+					</ul>
+					<h1 class="white-text">How to Get Started in Photography</h1>
+					<ul class="blog-post-meta">
+						<li class="blog-meta-author">By : <a href="#">John Doe</a></li>
+						<li>18 Oct, 2017</li>
+						<li class="blog-meta-comments"><a href="#"><i class="fa fa-comments"></i> 35</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Hero-area -->
+{% endblock %}
+
+{% block content %}
+    <!-- Blog -->
+	<div id="blog" class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				{% block content_main %}
+				<!-- main blog -->
+				<div id="main" class="col-md-9">
+					<!-- blog post -->
+					<div class="blog-post">
+						<blockquote>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						</blockquote>
+						<p>Te option apeirian corrumpit nec, has et tollit minimum molestie. Nam et justo everti, tale repudiandae cu nec. Aliquip legendos evertitur ne sit, mazim sadipscing sea ei. Sea no facete probatus vulputate, ex pri reque tempor. Odio adolescens ius te, docendi suscipit indoctum at qui.</p>
+					</div>
+					<!-- /blog post -->
+					<!-- blog share -->
+					<div class="blog-share">
+						<h4>Share This Post:</h4>
+						<a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+						<a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+						<a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+					</div>
+					<!-- /blog share -->
+                </div>
+				<!-- /main blog -->
+				{% endblock %}
+			</div>
+			<!-- row -->
+		</div>
+		<!-- container -->
+	</div>
+	<!-- /Blog -->
+{% endblock %}

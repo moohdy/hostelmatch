@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load hostels_tags %}
+{%load staticfiles %}
+
+{% block title %}HosteLite{% endblock %}
+
+{% block content %} 
+    {% show_latest_hostels 8 %}           
+{% endblock %}

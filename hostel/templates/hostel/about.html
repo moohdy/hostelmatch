@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load hostels_tags %}
+{%load staticfiles %}
+
+{% block content %}
+    <!-- this page is an information page of the hostelite:hostel and uses a custome tag(total_hostels)-->
+    <h1 class="white-text">HosteLite Boarding Services</h1>
+    <p class="lead white-text"> With over {% total_hostels %} hostels listed over several tetiary
+        institutions for your convenient all over Nigeria, you can say we have got you covered.
+        So when deciding on your next hostel accommodation be it owning or renting think  HosteLite.
+    </p>
+    <a class="main-button icon-button" href="#">Get Started!</a>
+{% endblock %}

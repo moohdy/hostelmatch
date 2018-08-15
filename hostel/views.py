@@ -7,7 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def homepage(request):
-    context = { 'section':'hostels'}
+    context = { 'section':'homepage'}
     return render(request,'hostel/homepage.html', context) 
 
 def hostel_list(request):

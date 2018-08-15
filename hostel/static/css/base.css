@@ -162,7 +162,7 @@ blockquote:before{
 	display:inline-block;
 	padding:10px 30px;
 	background-color: #FF6700;
-	border: 2px solid transparent;
+	border: 2px solid transparentinp;
 	border-radius: 40px;
 	color: #FFF;
 	-webkit-transition:0.2s all;

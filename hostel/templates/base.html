@@ -17,8 +17,85 @@
     <!-- bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+	<script type="text/javascript" src="js/cookie.js"></script>
 	<!-- local css -->
 	<link href="{% static "css/base.css" %}" rel="stylesheet">    
+
+	<script type="text/javascript">
+        function validateRegFormData(){
+            //validates the inputed data in the registration form for homes match
+            //validates the inputed string of name if empty or number included
+            if (document.getElementById("firstname").value === "")
+                alert("Please provide your firstname");
+            //validates the inputed string of name if empty or number included
+            else if (document.getElementById("lastname").value === "")
+                alert("Please provide your lastname");
+            //validates the inputed string of name if empty or number included
+            else if (document.getElementById("username").value === "")
+                alert("Please provide a username");
+            //validates the inputed password if its empty, length, and matches "confirm password"
+            else if (document.getElementById("password").value === "")
+                alert("Please provide a password");
+            else if (document.getElementById("password").value.length < 8)
+                alert("Password must be minimum of 8 characters");
+            else if (document.getElementById("password2").value !== ""){
+                if ((document.getElementById("password").value) != (document.getElementById("password2").value))
+                alert("Passwords did not match, please check again");
+            }
+            //validates that the inputed password2 is not empty, length, and matches "password"
+            else if (document.getElementById("password2").value === "")
+                alert("Please confirm your password");
+            else if (document.getElementById("password2").value.length < 8)
+                alert("Password must be minimum of 8 characters");
+            else if (document.getElementById("password").value !== ""){
+                if ((document.getElementById("password").value) != (document.getElementById("password2").value))
+                alert("Passwords did not match, please check again");
+            }
+            //validates the inputed email address if its empty, or @, .com is present 
+            else if (document.getElementById("email").value === "")
+                alert("Please provide your email address");
+            else if ((document.getElementById("email").value.indexOf("@")) == -1 || (document.getElementById("email").value.indexOf(".com")) == -1)
+                alert("Please enter a valid email address");
+        }
+        
+        
+        
+        function validateContact(){
+            //validates the inputed contact is a string of numbers and length
+            if (isNaN(parseInt(document.getElementById("contact").value)))
+                alert("Please enter a valid phone number");
+        }
+        
+        function calcPrice(){
+            //a function to calculate annual income to match home (need working)
+            var maxprice = parseInt(document.getElementById("annual_income").value) * 4;
+            document.getElementById("annual_income").value = "Annually, you can afford N" + maxprice.toFixed(2);
+            
+        }
+        
+		function usernameCookie(username_entered){
+			userName = readCookie("hostelmatch_username");
+			if (userName)
+				document.getElementById("username").value = userName;
+			else
+				writeCookie("hostelmatch_username", username_entered, 3 * 365 );
+		}
+		
+		function validateLoginFormData(){
+            //validates the inputed data in the login form of users
+            //validates username is entered
+            if (document.getElementById("username").value === "")
+                alert("Please provide a username");
+            //validates password is inputed and password length
+            else if (document.getElementById("password").value === "")
+                alert("Please enter your password");
+            else if (document.getElementById("password").value.length < 8)
+                alert("Password must be minimum of 8 characters");
+            else exit();
+        }
+		
+    </script>
+
 </head>
 <body>
 	{% block content_header%}
@@ -26,7 +103,7 @@
 			<div class="container">
 				<nav class="navbar navbar-expand-sm" id="nav">
 					<div class="container">
-						<a class="navbar-brand logo" href="#">HosteLite</a>
+						<a class="navbar-brand logo" href="{% url "hostel:homepage" %}">HosteLite</a>
 						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 							<span class="navbar-toggler-icon"></span>
 						</button>
@@ -34,37 +111,33 @@
 							{% if request.user.is_authenticated %}
 			                    <!-- if a user is logged in this navbar content is displayed -->
 			                    <ul class="main-menu nav navbar-nav mr-auto">
-			                        <li class="active">
-			                            <a class="nav-link" href="#"><i class="fas fa-home fa-sm"></i>Home</a>
+			                        <li class="nav-item">
+			                            <a class="nav-link" href="{% url "hostel:homepage" %}">Home</a>
 			                        </li>
-			                        <li>
-										<a class="nav-link" href="#"><span class="fas-stack">
-											<i class="fas fa-circle-thin fas-stack-2x"></i><i class="fas fa-home fa-stack-1x"></i>
-			                            </span>&nbsp;Available Homes</a>
+									<li class="nav-item">
+										<a class="nav-link" href="#">About</a>
 			                        </li>
-			                    </ul>
-			                    <form class="form-inline my-2 my-lg-0" role="search" action="." method="get">
+								</ul>
+			                    <form class="form-inline ml-auto pl-5" role="search" action="." method="get">
 			                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-									<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+									<button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search fa-sm"></i>&nbsp;Search</button>
 			                    </form>
 			                    <ul class="main-menu nav navbar-nav ml-auto">
-			                        <li>
-			                            <a class="nav-link" href="#">My Profile</a>
+			                        <li class="nav-item">
+										<a class="nav-link" href="{% url "hostel:vacant_hostel" %}">Hostels</a>
 			                        </li>
-			                        <li>
-			                            <a class="nav-link" href="#"><span class="fa-stack"> <i class="fa fa-square-o fa-stack-2x"></i>
-			                                <i class="fa fa-home fa-stack-1x"></i>
-										</span>&nbsp;Matched Home</a>
+									<li class="nav-item">
+			                            <a class="nav-link" href="{% url "account:dashboard" %}">Profile</a>
 			                        </li>
-			                        <li>
-			                            <a class="nav-link" href="#">Logout</a>
+			                        <li class="nav-item">
+										<a class="nav-link" href="#">Roomies</a>
 			                        </li>
-			                        <li>
-										<a class="nav-link" href="#">People</a>
+									<li class="nav-item">
+										<a class="nav-link" href="#">Community</a>
 			                        </li>
-			                        <li>
-			                            <a class="nav-link" href="#"><i class="fa fa-user"></i></a>
-			                        </li>
+									<li class="nav-item">
+                                        <a class="nav-link" href="{% url "logout" %}">Logout</a> 
+                                    </li>
 			                    </ul>
 							{% else %}
 								<form class="form-inline ml-auto pl-5" role="search" action="." method="get">
@@ -72,21 +145,24 @@
 									<button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search fa-sm"></i>&nbsp;Search</button>
 			                    </form>
 								<ul class="main-menu nav navbar-nav ml-auto">
-			                        <li class=" nav-item active">
-			                            <a class="nav-link" href="#"><i class="fas fa-home fa-sm"></i>&nbsp;Home</a>
+			                        <li class="nav-item">
+			                            <a class="nav-link" href="{% url "hostel:homepage" %}">Home</a>
 			                        </li>
 			                        <li class="nav-item">
-										<a class="nav-link" href="#"><i class="fas fa-book fa-sm"></i>&nbsp;About</a>
+										<a class="nav-link" href="#">About</a>
 			                        </li>
 									<li class="nav-item">
-										<a class="nav-link" href="{% url "hostel:vacant_hostel" %}"><i class="fa fa-building fa-sm"></i>&nbsp;Hostels</a>
+										<a class="nav-link" href="{% url "hostel:vacant_hostel" %}">Hostels</a>
 			                        </li>
 									<li class="nav-item">
-										<a class="nav-link" href="#"><i class="fas fa-users fa-sm"></i>&nbsp;Roomies</a>
+										<a class="nav-link" href="#">Roomies</a>
 			                        </li>
 									<li class="nav-item">
-										<a class="nav-link" href="#"><i class="fas fa-comments fa-sm"></i>&nbsp;Community</a>
+										<a class="nav-link" href="#">Community</a>
 			                        </li>
+									<li class="nav-item">
+                                        <a class="nav-link" href="{% url "login" %}">Login</a> 
+                                    </li>
 			                    </ul>
 							{% endif %}
 						</div>
@@ -114,6 +190,39 @@
 								a returning student, think  HosteLite.
 							</p>
 							<a class="main-button icon-button"  href="#">Get Started!</a>
+							<button class="btn btn-primary main-button icon-button" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+								Log-In!
+							</button>
+						</div>
+						<div class="col-md-4">
+							<div class="collapse" id="collapseExample">
+								<div>
+									{% if form.errors %}	
+										<h4 class="lead white-text">Username and password combination doesn't exist. Please try again.</h4>
+									{% else %}
+										<h1 class="white-text">Log-In</h1>
+									{% endif %}
+									<form name="loginform" class="white-text" action="{% url "login" %}" method="post">
+										<p class="lead">{{ form.non_field_errors }}</p>
+										<div class="form-group">
+											<p class="lead">{{ form.username.errors }}</p>
+											<label for="{{ form.username.id_for_label }}"> Username:</label>
+											<input type="text" name="username" id="username" class="form-control"
+											    aria-describedby="emailHelp" required="True" placeholder="Enter username or email" onchange="usernameCookie(this.value);"/>
+											<small id="emailHelp" class="form-text white-text">We'll never share your email with anyone else.</small>
+										</div>
+										<div class="form-group">
+											<p class="lead"> {{ form.password.errors }}</p>
+											<label for="{{ form.password.id_for_label }}">Password:</label>
+											<input type="password" name="password" id="password" class="form-control"
+											    required="True" placeholder="Password"/>
+										</div>
+										{% csrf_token %}
+										<input type="hidden" name="next" value="{{ next }}" />
+										<input class="btn btn-primary main-button icon-button" type="submit" value="Log-in" onclick="validateLoginFormData();">
+									</form>
+                    			</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -269,6 +378,7 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/cookie.js"></script>
 
     
 </body>

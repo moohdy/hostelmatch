@@ -7,10 +7,10 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     #url site main address
     url(r'^hostelite/', include('hostel.urls', namespace='hostel', app_name='hostel')),
-    #the site main address url
-    #url(r'^hostelmatch/', include('registration.urls', namespace='registration', app_name='registration')),
+    url(r'^hostelite/', include('account.urls', namespace='account', app_name='account')),
     #the django authentication urls
-    #url('^', include('django.contrib.auth.urls')),
+    url(r'^hostelite/', include('django.contrib.auth.urls')),
+    
     #haystack solr search url config
     #url(r'^search/', include('haystack.urls')),
     

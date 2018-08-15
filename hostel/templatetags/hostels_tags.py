@@ -17,3 +17,7 @@ def show_latest_hostels(count=8):
     latest_hostels = Hostel.vacanthostel.order_by('-created')[:count]
     return {'latest_hostels': latest_hostels}
 
+
+@register.filter(name='markdown')
+def markdown_format(text):
+    return mark_safe(markdown.markdown(text))

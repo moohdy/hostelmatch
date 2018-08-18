@@ -21,7 +21,7 @@
 			                            <a class="nav-link" href="{% url "hostel:homepage" %}">Home</a>
 			                        </li>
 									<li class="nav-item">
-										<a class="nav-link" href="#">About</a>
+										<a class="nav-link" href="{% url "hostel:about_hostelite" %}">About</a>
 			                        </li>
 								</ul>
 			                    <form class="form-inline ml-auto pl-5" role="search" action="." method="get">
@@ -30,7 +30,7 @@
 			                    </form>
 			                    <ul class="main-menu nav navbar-nav ml-auto">
 			                        <li class="nav-item">
-										<a class="nav-link" href="{% url "hostel:vacant_hostel" %}">Hostels</a>
+										<a class="nav-link" href="{% url "hostel:vacant_hostels" %}">Hostels</a>
 			                        </li>
 									<li class="nav-item">
 			                            <a class="nav-link" href="{% url "account:dashboard" %}">Profile</a>
@@ -55,10 +55,10 @@
 			                            <a class="nav-link" href="{% url "hostel:homepage" %}">Home</a>
 			                        </li>
 			                        <li class="nav-item">
-										<a class="nav-link" href="#">About</a>
+										<a class="nav-link" href="{% url "hostel:about_hostelite" %}">About</a>
 			                        </li>
 									<li class="nav-item">
-										<a class="nav-link" href="{% url "hostel:vacant_hostel" %}">Hostels</a>
+										<a class="nav-link" href="{% url "hostel:vacant_hostels" %}">Hostels</a>
 			                        </li>
 									<li class="nav-item">
 										<a class="nav-link" href="#">Roomies</a>
@@ -89,10 +89,11 @@
 			<div class="row">
 				<div class="col-md-10 offset-md-1 text-center">
 					<ul class="hero-area-tree">
-						<li><a href="#">Home</a></li>
-						<li>Blog</li>
+						<li><a href="{% url "hostel:vacant_hostels" %}">Hostels</a></li>
+						<li><a href="#">Create Account</a></li>
+						<li>List of vacant Hostels</li>
 					</ul>
-					<h1 class="white-text">Blog Page</h1>
+					<h1 class="white-text">Vacant Hostels</h1>
 				</div>
 			</div>
 		</div>
@@ -106,7 +107,7 @@
 		<!-- container -->
 		<div class="container">
 			<!-- row -->
-			<div class="row">
+			<div class="row mt-3">
 				{% block content_main %}
 				<!-- main blog -->
 				<div id="main" class="col-md-9">
@@ -141,22 +142,21 @@
 					<!-- category widget -->
 					<div class="widget category-widget">
 						<h3>Categories</h3>
-						<a class="category" href="#">Web <span>12</span></a>
-						<a class="category" href="#">Css <span>5</span></a>
-						<a class="category" href="#">Wordpress <span>24</span></a>
-						<a class="category" href="#">Html <span>78</span></a>
-						<a class="category" href="#">Business <span>36</span></a>
+						<a class="category" href="#">Self cont. <span>12</span></a>
+						<a class="category" href="#">One-Room apt' <span>5</span></a>
+						<a class="category" href="#">Flat <span>24</span></a>
+						<a class="category" href="#">School Hostels <span>78</span></a>
 					</div>
 					<!-- /category widget -->
 					<!-- posts widget -->
 					<div class="widget posts-widget">
-						<h3>Recents Posts</h3>
+						<h3>Recent Roomies</h3>
 						<!-- single posts -->
 						<div class="single-post">
 							<a class="single-post-img" href="blog-post.html">
 								<img src="./img/post01.jpg" alt="">
 							</a>
-							<a href="blog-post.html">Pro eu error molestie deserunt.</a>
+							<a href="blog-post.html">jasmine looking for roomie.</a>
 							<p><small>By : John Doe .18 Oct, 2017</small></p>
 						</div>
 						<!-- /single posts -->
@@ -165,14 +165,11 @@
 					<!-- tags widget -->
 					<div class="widget tags-widget">
 						<h3>Tags</h3>
-						<a class="tag" href="#">Web</a>
-						<a class="tag" href="#">Photography</a>
-						<a class="tag" href="#">Css</a>
-						<a class="tag" href="#">Responsive</a>
-						<a class="tag" href="#">Wordpress</a>
-						<a class="tag" href="#">Html</a>
-						<a class="tag" href="#">Website</a>
-						<a class="tag" href="#">Business</a>
+						<a class="tag" href="#">19th Street</a>
+						<a class="tag" href="#">Ekosodin</a>
+						<a class="tag" href="#">One-Room</a>
+						<a class="tag" href="#">N50,000</a>
+						<a class="tag" href="#">Green Roof Estate</a>
 					</div>
 					<!-- /tags widget -->
 				</div>
@@ -186,8 +183,10 @@
 	<!-- /Blog -->
 {% endblock %}
 
-{% block content_about %}
+{% block content_why %}
+{% endblock %}
 
+{% block content_about %}
 {% endblock %}
 {% block content_contact %}
 {% endblock %}

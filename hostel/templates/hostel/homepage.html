@@ -4,6 +4,8 @@
 
 {% block title %}HosteLite{% endblock %}
 
-{% block content %} 
+{% block content %}
+<!--- this is the homepage html for the website, it extends the base.html and uses templatetags to get latest hostels
+        for display on the homepage--->
     {% show_latest_hostels 8 %}           
 {% endblock %}

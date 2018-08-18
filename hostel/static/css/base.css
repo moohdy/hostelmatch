@@ -180,8 +180,6 @@ blockquote:before{
 }
 
 .main-button.icon-button:after {
-	content:"\f09a";
-	font-family:FontAwesome;
 	position:absolute;
 	width: 30px;
 	right: 15px;

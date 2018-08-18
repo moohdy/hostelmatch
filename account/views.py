@@ -10,9 +10,9 @@ from django.contrib.auth.models import User
 #from haystack.query import SearchQuerySet
 
 
+#a view for retriving a user dashboard profile
 @login_required
 def dashboard(request):
-    #a view for retriving a user dashboard profile
     context = {'section':'dashboard'}
     return render (request, 'account/profile.html',context)
 

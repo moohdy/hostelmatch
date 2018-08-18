@@ -115,7 +115,7 @@
 			                            <a class="nav-link" href="{% url "hostel:homepage" %}">Home</a>
 			                        </li>
 									<li class="nav-item">
-										<a class="nav-link" href="#">About</a>
+										<a class="nav-link" href="{% url "hostel:about_hostelite"%}">About</a>
 			                        </li>
 								</ul>
 			                    <form class="form-inline ml-auto pl-5" role="search" action="." method="get">
@@ -124,7 +124,7 @@
 			                    </form>
 			                    <ul class="main-menu nav navbar-nav ml-auto">
 			                        <li class="nav-item">
-										<a class="nav-link" href="{% url "hostel:vacant_hostel" %}">Hostels</a>
+										<a class="nav-link" href="{% url "hostel:vacant_hostels" %}">Hostels</a>
 			                        </li>
 									<li class="nav-item">
 			                            <a class="nav-link" href="{% url "account:dashboard" %}">Profile</a>
@@ -149,10 +149,10 @@
 			                            <a class="nav-link" href="{% url "hostel:homepage" %}">Home</a>
 			                        </li>
 			                        <li class="nav-item">
-										<a class="nav-link" href="#">About</a>
+										<a class="nav-link" href="{% url "hostel:about_hostelite" %}">About</a>
 			                        </li>
 									<li class="nav-item">
-										<a class="nav-link" href="{% url "hostel:vacant_hostel" %}">Hostels</a>
+										<a class="nav-link" href="{% url "hostel:vacant_hostels" %}">Hostels</a>
 			                        </li>
 									<li class="nav-item">
 										<a class="nav-link" href="#">Roomies</a>
@@ -182,25 +182,27 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-8">
-							<h1 class="white-text">HosteLite Boarding Services</h1>
-							<p class="lead white-text">
+							<h1 class="white-text text-center">HosteLite Boarding Services</h1>
+							<p class="lead white-text text-center">
 								With over {% total_hostels %} hostels listed over several tetiary institutions
-								in Nigeria, you can say we have got you covered.</br>
-								So when deciding on your hostel accommodation be you a freshman or
-								a returning student, think  HosteLite.
+								in Nigeria,</br> you can say we have got you covered.
+								So when deciding on your next hostel</br> accommodation, be you a freshman or
+								a returning student, think  HosteLite. </br> Thank you.
 							</p>
-							<a class="main-button icon-button"  href="#">Get Started!</a>
-							<button class="btn btn-primary main-button icon-button" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-								Log-In!
-							</button>
+							<div style="margin-left: 15em">
+								<a class="main-button icon-button"  href="#">Get Started!</a>
+								<button class="btn btn-primary main-button icon-button" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+									Login!
+								</button>
+							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="collapse" id="collapseExample">
 								<div>
 									{% if form.errors %}	
-										<h4 class="lead white-text">Username and password combination doesn't exist. Please try again.</h4>
+										<h4 class="lead white-text text-center">Username and password combination doesn't exist. Please try again.</h4>
 									{% else %}
-										<h1 class="white-text">Log-In</h1>
+										<h1 class="white-text text-center">Login</h1>
 									{% endif %}
 									<form name="loginform" class="white-text" action="{% url "login" %}" method="post">
 										<p class="lead">{{ form.non_field_errors }}</p>
@@ -219,7 +221,7 @@
 										</div>
 										{% csrf_token %}
 										<input type="hidden" name="next" value="{{ next }}" />
-										<input class="btn btn-primary main-button icon-button" type="submit" value="Log-in" onclick="validateLoginFormData();">
+										<input class="btn btn-primary main-button icon-button" style="margin-left: 7em" type="submit" value="Log-in" onclick="validateLoginFormData();">
 									</form>
                     			</div>
 							</div>
@@ -288,6 +290,81 @@
 		{% show_latest_hostels 8 %}
 	{% endblock %}
 	
+	{% block content_why %}
+		<!-- Call To Action -->
+		<div id="cta" class="section">
+			<!-- Backgound Image -->
+			<div class="bg-image bg-parallax overlay" style="background-image:url(/static/img/cta1-background.jpg)"></div>
+			<!-- /Backgound Image -->
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-6">
+						<h2 class="white-text">Ceteros fuisset mei no, soleat epicurei adipiscing ne vis.</h2>
+						<p class="lead white-text">Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
+						<a class="main-button icon-button" href="#">Get Started!</a>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /Call To Action -->
+		<!-- Why us -->
+		<div id="why-us" class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="section-header mx-auto">
+							<h2 class="text-center">Why HosteLite</h2>
+							<p class="lead text-center">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
+						</div>
+					</div>
+					<!-- feature -->
+					<div class="col-md-4">
+						<div class="feature">
+							<i class="feature-icon fas fa-building"></i>
+							<div class="feature-content">
+								<h4>Hostels</h4>
+								<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
+							</div>
+						</div>
+					</div>
+					<!-- /feature -->
+					<!-- feature -->
+					<div class="col-md-4">
+						<div class="feature">
+							<i class="feature-icon fa fa-users"></i>
+							<div class="feature-content">
+								<h4>Roomies</h4>
+								<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
+							</div>
+						</div>
+					</div>
+					<!-- /feature -->
+
+					<!-- feature -->
+					<div class="col-md-4">
+						<div class="feature">
+							<i class="feature-icon fa fa-comments"></i>
+							<div class="feature-content">
+								<h4>Community</h4>
+								<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
+							</div>
+						</div>
+					</div>
+					<!-- /feature -->
+				</div>
+				<!-- /row -->
+				<hr class="section-hr">
+			</div>
+		</div>	
+	{% endblock %}
+	
 	{% block content_contact %}
 		<!-- Contact CTA -->
 		<div id="contact-cta" class="section">
@@ -301,7 +378,7 @@
 					<div class="col-md-8 offset-md-2 text-center">
 						<h2 class="white-text">Contact Us</h2>
 						<p class="lead white-text">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
-						<a class="main-button icon-button" href="#">Contact Us Now</a>
+						<a class="main-button icon-button" href="{% url "hostel:about_hostelite" %}">Contact Us Now</a>
 					</div>
 				</div>
 				<!-- /row -->
@@ -321,16 +398,16 @@
 					<!-- footer logo -->
 					<div class="col-md-6">
 						<div class="footer-logo">
-							<h4><a class="logo" href="#">HosteLite</a></h4>
+							<h4><a class="logo" href="{% url "hostel:homepage" %}">HosteLite</a></h4>
 						</div>
 					</div>
 					<!-- footer logo -->
 					<!-- footer nav -->
 					<div class="col-md-6">
 						<ul class="footer-nav">
-							<li><a href="index.html">Home</a></li>
-							<li><a href="#">About</a></li>
-							<li><a href="#">Hostels</a></li>
+							<li><a href="{% url "hostel:homepage" %}">Home</a></li>
+							<li><a href="{% url "hostel:about_hostelite" %}">About</a></li>
+							<li><a href="{% url "hostel:vacant_hostels" %}">Hostels</a></li>
 							<li><a href="#">Roomies</a></li>
 							<li><a href="#">Community</a></li>
 						</ul>

@@ -1,0 +1,54 @@
+{% extends "hostel\hostels.html" %}
+{% load hostels_tags %}
+{%load staticfiles %}
+
+{% block title %}HosteLite{% endblock %}
+{% block content_banner %}
+    <!-- Hero-area -->
+	<div class="hero-area section">
+		<!-- Backgound Image -->
+		<div class="bg-image bg-parallax overlay" style="background-image:url(/static/img/blog-post-background.jpg)"></div>
+		<!-- /Backgound Image -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 offset-md-1 text-center">
+					<ul class="hero-area-tree">
+						<li><a href="{% url "hostel:about_hostelite"%}">About</a></li>
+						<li><a href="#contact_us">Contact us</a></li>
+						<li>How to Get Started on HosteLite</li>
+					</ul>
+					<h1 class="white-text">How to Get Started on Hostelite</h1>
+					<ul class="blog-post-meta">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Hero-area -->
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 text-center">
+                <h3 class="mt-3">Welcome {{ new_user.first_name }}!</h3>
+				<hr>
+                <p>Your account has been successfully created. <a class="nav-link" href="{% url "account:dashboard" %}">My Profile.</a>
+            </div>
+        </div>
+        <div class="row">
+			<div class="col-md-8 offset-md-2">
+				<ul class="nav footer-nav  justify-content-center mt-3 mb-3">
+					<li class="nav-item">
+						<a class="nav-link active" href="{% url "password_change" %}">Change Password</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url "logout" %}">Logout</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url "password_reset" %}">forgotten password</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+    </div>
+{% endblock %}

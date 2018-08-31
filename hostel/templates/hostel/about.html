@@ -53,34 +53,34 @@
                     {% else %}
                         <h3>Contact Us</h3>
 						<hr>
-                        <form class="contact_form" action="." method="post" id="contact_form">
-                            <p class="text-center">{{ contact_form.non_field_errors }}</p>
+                        <form name="contact_form" action="." method="post" id="contact_form">
+							<p>{{ contact_form.non_field_errors }}</p>
+							<p>{{ contact_form.name.errors }}</p>
                             <div class="form-group row">
-                                <p>{{ contact_form.name.errors }}</p>
                                 <label for="{{ contact_form.name.id_for_label }}" class="col-sm-2 col-form-label"> Name:</label>
                                 <div class="col-sm-8">
                                 	<input type="text" name="name" id="name" class="form-control"
                                 	    required="True" placeholder="Enter Name" />
                                 </div>						
                             </div>
-                             <div class="form-group row">
-                                <p>{{ contact_form.email.errors }}</p>
+							<p>{{ contact_form.email.errors }}</p>
+                            <div class="form-group row">
                                 <label for="{{ contact_form.email.id_for_label }}" class="col-sm-2 col-form-label">Email:</label>
                                 <div class="col-sm-8">
                                 	<input type="text" name="email" id="email" class="form-control"
                                 	    required="True" placeholder="Enter Email" />
                                 </div>						
-                            </div>           
+                            </div>
+							<p>{{ contact_form.subject.errors }}</p>
                             <div class="form-group row">
-                                <p>{{ contact_form.subject.errors }}</p>
                                 <label for="{{ contact_form.subject.id_for_label }}" class="col-sm-2 col-form-label">Subject:</label>
                                 <div class="col-sm-8">
                                 	<input type="text" name="subject" id="subject" class="form-control"
                                 	    required="True" placeholder="Enter message title" />
                                 </div>						
-                            </div>  
+                            </div>
+							<p>{{ contact_form.message.errors }}</p>
                             <div class="form-group row">
-                                <p>{{ contact_form.message.errors }}</p>
                                 <label for="{{ contact_form.message.id_for_label }}" class="col-sm-2 col-form-label">Message:</label>
                                 <div class="col-sm-8">
 									<textarea class="form-control" name="message" id="message" rows="3" required="True"

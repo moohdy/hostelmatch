@@ -176,7 +176,7 @@
 		<!-- Home -->
 		<div id="home" class="hero-area">
 			<!-- Backgound Image -->
-			<div class="bg-image bg-parallax overlay" style="background-image: url(/static/img/home-background.jpg)"></div>
+			<div class="bg-image bg-parallax overlay" style="background-image: url(/static/img/home_background.jpg)"></div>
 			<!-- /Backgound Image -->
 			<div class="home-wrapper">
 				<div class="container">
@@ -186,14 +186,19 @@
 							<p class="lead white-text text-center">
 								With over {% total_hostels %} hostels listed over several tetiary institutions
 								in Nigeria,</br> you can say we have got you covered.
-								So when deciding on your next hostel</br> accommodation, be you a freshman or
-								a returning student, think  HosteLite. </br> Thank you.
+								So when deciding on your hostel</br> accommodation, be you a freshman or
+								a returning student, think  HosteLite.
 							</p>
 							<div style="margin-left: 15em">
-								<a class="main-button icon-button"  href="#">Get Started!</a>
-								<button class="btn btn-primary main-button icon-button" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-									Login!
-								</button>
+								{% if request.user.is_authenticated %}
+									<a class="main-button icon-button"  href="{% url "account:dashboard" %}">Profile!</a>
+									<a class="main-button icon-button"  href="#">Community!</a>								
+								{% else %}
+									<a class="main-button icon-button"  href="{% url "account:register" %}">Get Started!</a>
+									<button class="btn btn-primary main-button icon-button" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+										Login!
+									</button>
+								{% endif %}		
 							</div>
 						</div>
 						<div class="col-md-4">
@@ -204,17 +209,29 @@
 									{% else %}
 										<h1 class="white-text text-center">Login</h1>
 									{% endif %}
-									<form name="loginform" class="white-text" action="{% url "login" %}" method="post">
-										<p class="lead">{{ form.non_field_errors }}</p>
+									<form name="login_form" class="white-text" action="{% url "login" %}" method="post">
+										<div class="row">
+											<div class="col-sm-10 offset-md-1">
+											    <p class="lead">{{ form.non_field_errors }}</p>
+											</div>
+										</div>
 										<div class="form-group">
-											<p class="lead">{{ form.username.errors }}</p>
+											<div class="row">
+												<div class="col-sm-10 offset-md-1">
+												    <p class="lead">{{ form.username.errors }}</p>
+												</div>
+											</div>
 											<label for="{{ form.username.id_for_label }}"> Username:</label>
 											<input type="text" name="username" id="username" class="form-control"
 											    aria-describedby="emailHelp" required="True" placeholder="Enter username or email" onchange="usernameCookie(this.value);"/>
 											<small id="emailHelp" class="form-text white-text">We'll never share your email with anyone else.</small>
 										</div>
 										<div class="form-group">
-											<p class="lead"> {{ form.password.errors }}</p>
+											<div class="row">
+												<div class="col-sm-10 offset-md-1">
+												    <p class="lead">{{ form.password.errors }}</p>
+												</div>
+											</div>
 											<label for="{{ form.password.id_for_label }}">Password:</label>
 											<input type="password" name="password" id="password" class="form-control"
 											    required="True" placeholder="Password"/>
@@ -231,6 +248,19 @@
 			</div>
 		</div>
 		<!-- /Home -->
+	{% endblock %}
+
+	{% block messages %}
+		{% if messages %}
+		    <!-- the messges sent upon the success or failure of a registration process -->
+		    <ul class="messages">
+		        {% for message in messages %}
+		            <li class="{{ message.tags }}">
+		                {{ message|safe }}<a href="#" class="close">×</a>
+		             </li>
+		        {% endfor %}
+		    </ul>
+		{% endif %}	
 	{% endblock %}
 	
 	{% block content_about %}
@@ -275,7 +305,7 @@
 					</div>
 					<div class="col-md-6">
 						<div class="about-img">
-							<img src="{% static "img/about.png" %}" alt="">
+							<img src="{% static "img/about.jpg" %}" alt="">
 						</div>
 					</div>
 				</div>
@@ -294,7 +324,7 @@
 		<!-- Call To Action -->
 		<div id="cta" class="section">
 			<!-- Backgound Image -->
-			<div class="bg-image bg-parallax overlay" style="background-image:url(/static/img/cta1-background.jpg)"></div>
+			<div class="bg-image bg-parallax overlay" style="background-image:url(/static/img/hostel_background.jpg)"></div>
 			<!-- /Backgound Image -->
 			<!-- container -->
 			<div class="container">
@@ -303,7 +333,7 @@
 					<div class="col-md-6">
 						<h2 class="white-text">Ceteros fuisset mei no, soleat epicurei adipiscing ne vis.</h2>
 						<p class="lead white-text">Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
-						<a class="main-button icon-button" href="#">Get Started!</a>
+						<a class="main-button icon-button" href="{% url "account:register" %}">Get Started!</a>
 					</div>
 				</div>
 				<!-- /row -->
@@ -369,7 +399,7 @@
 		<!-- Contact CTA -->
 		<div id="contact-cta" class="section">
 			<!-- Backgound Image -->
-			<div class="bg-image bg-parallax overlay" style="background-image:url(/static/img/cta2-background.jpg)"></div>
+			<div class="bg-image bg-parallax overlay" style="background-image:url(/static/img/contactus_background.jpg)"></div>
 			<!-- Backgound Image -->
 			<!-- container -->
 			<div class="container">

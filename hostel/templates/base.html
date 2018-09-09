@@ -17,82 +17,91 @@
     <!-- bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
-	<script type="text/javascript" src="js/cookie.js"></script>
+	<script type="text/javascript" src="{% static "js/cookie.js" %}"></script>
 	<!-- local css -->
 	<link href="{% static "css/base.css" %}" rel="stylesheet">    
 
 	<script type="text/javascript">
-        function validateRegFormData(){
-            //validates the inputed data in the registration form for homes match
-            //validates the inputed string of name if empty or number included
-            if (document.getElementById("firstname").value === "")
-                alert("Please provide your firstname");
-            //validates the inputed string of name if empty or number included
-            else if (document.getElementById("lastname").value === "")
-                alert("Please provide your lastname");
-            //validates the inputed string of name if empty or number included
-            else if (document.getElementById("username").value === "")
-                alert("Please provide a username");
-            //validates the inputed password if its empty, length, and matches "confirm password"
-            else if (document.getElementById("password").value === "")
-                alert("Please provide a password");
-            else if (document.getElementById("password").value.length < 8)
-                alert("Password must be minimum of 8 characters");
-            else if (document.getElementById("password2").value !== ""){
-                if ((document.getElementById("password").value) != (document.getElementById("password2").value))
-                alert("Passwords did not match, please check again");
-            }
-            //validates that the inputed password2 is not empty, length, and matches "password"
-            else if (document.getElementById("password2").value === "")
-                alert("Please confirm your password");
-            else if (document.getElementById("password2").value.length < 8)
-                alert("Password must be minimum of 8 characters");
-            else if (document.getElementById("password").value !== ""){
-                if ((document.getElementById("password").value) != (document.getElementById("password2").value))
-                alert("Passwords did not match, please check again");
-            }
-            //validates the inputed email address if its empty, or @, .com is present 
-            else if (document.getElementById("email").value === "")
-                alert("Please provide your email address");
-            else if ((document.getElementById("email").value.indexOf("@")) == -1 || (document.getElementById("email").value.indexOf(".com")) == -1)
-                alert("Please enter a valid email address");
-        }
-        
-        
-        
-        function validateContact(){
-            //validates the inputed contact is a string of numbers and length
-            if (isNaN(parseInt(document.getElementById("contact").value)))
-                alert("Please enter a valid phone number");
-        }
-        
-        function calcPrice(){
-            //a function to calculate annual income to match home (need working)
-            var maxprice = parseInt(document.getElementById("annual_income").value) * 4;
-            document.getElementById("annual_income").value = "Annually, you can afford N" + maxprice.toFixed(2);
-            
-        }
-        
-		function usernameCookie(username_entered){
-			userName = readCookie("hostelmatch_username");
-			if (userName)
-				document.getElementById("username").value = userName;
-			else
-				writeCookie("hostelmatch_username", username_entered, 3 * 365 );
+		
+		var userName;
+		
+		function readLoginUsernameCookie(){
+			if (navigator.cookieEnabled){
+				userName = readCookie("hostelite_username");
+				if (userName){
+					document.getElementById("username").value =  userName;
+				}
+			}else{
+				alert("Cookie is disabled, please enable cookies.");
+			}
 		}
 		
+		function saveLoginUsernameCookie(value){
+			userName = readCookie("hostelite_username");
+			if (userName){
+				return;
+			}else{
+				userName = value;
+				writeCookie("hostelite_username", userName, 5 * 365);
+			}
+		}
+		
+				
 		function validateLoginFormData(){
-            //validates the inputed data in the login form of users
+            //validates the inputed data in the login form of users when login button is clicked
             //validates username is entered
-            if (document.getElementById("username").value === "")
-                alert("Please provide a username");
+            if (document.getElementById("username").value === ""){
+                alert("Please enter your username");
+            }
             //validates password is inputed and password length
-            else if (document.getElementById("password").value === "")
+            else if (document.getElementById("password").value === ""){
                 alert("Please enter your password");
-            else if (document.getElementById("password").value.length < 8)
+            }
+            else if (document.getElementById("password").value.length < 8){
                 alert("Password must be minimum of 8 characters");
+            }
             else exit();
         }
+		
+		function validateLoginFormDataUsername(inputField, helpText){
+			//validates the inputed data in the login form of users onblur
+			 //validates username is entered
+            if (document.getElementById("username").value === ""){
+                helpText.innerHTML = "Please enter your username";
+            }
+		}
+		
+		function validateLoginFormDataPassword(inputField, helpText){
+			//validates the inputed data in the login form of users onblur
+            //validates password is inputed and password length
+            if (document.getElementById("password").value === ""){
+                helpText.innerHTML = "Please enter your password";
+            }
+            else if (document.getElementById("password").value.length < 8){
+                helpText.innerHTML = "Password must be minimum of 8 characters";
+            }
+            else exit();
+		}
+		
+		window.onload = function(){
+			//username cookie saving
+			 //validates the inputed data in the login form of users when login button is clicked
+			document.getElementById("loginform").onclick = function(evt) {
+				saveLoginUsernameCookie(document.getElementById("username").value);
+				validateLoginFormData();
+			};
+			document.getElementById("username").onblur = function(evt) {
+				//validates the inputed data in the login form of users onblur
+				validateLoginFormDataUsername(this, document.getElementById("username_help"));
+			};
+			document.getElementById("password").onblur = function(evt) {
+				//validates the inputed data in the login form of users onblur
+				validateLoginFormDataPassword(this, document.getElementById("password_help"));
+			};
+			
+			//reads username cookie from system upon onload
+			readLoginUsernameCookie();
+		};
 		
     </script>
 
@@ -194,7 +203,7 @@
 									<a class="main-button icon-button"  href="{% url "account:dashboard" %}">Profile!</a>
 									<a class="main-button icon-button"  href="#">Community!</a>								
 								{% else %}
-									<a class="main-button icon-button"  href="{% url "account:register" %}">Get Started!</a>
+									<a class="main-button icon-button"  href="{% url "account:register" %}">Get Started! </a>
 									<button class="btn btn-primary main-button icon-button" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 										Login!
 									</button>
@@ -482,11 +491,10 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
-	<script type="text/javascript" src="js/cookie.js"></script>
-
+	<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/main.js" %}"></script>
+	
     
 </body>
 </html>

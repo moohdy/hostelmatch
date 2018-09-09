@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .forms import UserRegistrationForm , UserEditForm, ProfileEditForm#, SearchForm, LandlordForm, RoomieForm
+from .forms import UserRegistrationForm ,ProfileCreationForm, UserEditForm, ProfileEditForm#, SearchForm, LandlordForm, RoomieForm
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from .models import Profile#, Landlord, Roomie
@@ -20,21 +20,26 @@ def dashboard(request):
 def register(request):
     if request.method == 'POST':
         # The form was posted
-        register_form = UserRegistrationForm(request.POST, request.FILES)
-        if register_form.is_valid():
+        register_form = UserRegistrationForm(request.POST)
+        #instance=request.user.profile,
+        profile_form = ProfileCreationForm(data=request.POST, files=request.FILES)
+        if register_form.is_valid() and profile_form.is_valid():
             # Create user object but don't save to database yet
             new_user = register_form.save(commit=False)
+            new_user_profile = profile_form.save(commit=False)
             #set the choosen password
             new_user.set_password(register_form.cleaned_data['password'])
             # Save the user to the database
             new_user.save()
             # Create the unpopulated user profile
-            profile = Profile.objects.create(user=new_user)
-            context = {'new_user':new_user}
+            #profile = Profile.objects.create(user=new_user)
+            new_user_profile.save()
+            context = {'new_user':new_user, 'new_user_profile':new_user_profile}
             return render(request,'account/register_done.html', context)   
     else:
         register_form = UserRegistrationForm()
-    context = { 'register_form':register_form}
+        profile_form = ProfileCreationForm()
+    context = { 'register_form':register_form, 'profile_form':profile_form }
     return render(request,'account/register.html', context)
 
 

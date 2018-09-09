@@ -90,6 +90,37 @@
                                 required="True" placeholder="Enter your Email" />
                         </div>
                     </div>
+					<p>{{ profile_form.date_of_birth.errors }}</p>
+                    <div class="form-group row">
+                        <label for="{{ profile_form.date_of_birth.id_for_label }}"class="col-sm-2 col-form-label">Date of Birth:</label>
+                        <div class="col-sm-8">
+                            <input type="date" name="dob" id="dob" class="form-control"
+                                required="True" placeholder="Date of Birth" />
+                        </div>
+                    </div>
+                    <p>{{ profile_form.contact.errors }}</p>
+                    <div class="form-group row">
+                        <label for="{{ profile_form.contact.id_for_label }}"class="col-sm-2 col-form-label">Phone number(s):</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="contact" id="contact" class="form-control"
+                                required="True" placeholder="Phone number(s)" />
+                        </div>
+                    </div>
+                    <p>{{ profile_form.location.errors }}</p>
+                    <div class="form-group row">
+                        <label for="{{ profile_form.location.id_for_label }}"class="col-sm-2 col-form-label">Address:</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="location" id="location" class="form-control"
+                                required="True" placeholder="Present address" />
+                        </div>
+                    </div>
+                    <p>{{ profile_form.photo.errors }}</p>
+                    <div class="form-group row">
+						<label for="{{ profile_form.photo.id_for_label }}"class="col-sm-2 col-form-label">Profile picture:</label>
+						<div class="col-sm-8">
+                            {{ profile_form.photo }}
+                        </div>   
+                    </div>
                     {% csrf_token %}
                     <div class="col-sm-8 offset-md-2">
 						<input class="btn btn-primary btn-block main-button icon-button" type="submit" value="Submit">

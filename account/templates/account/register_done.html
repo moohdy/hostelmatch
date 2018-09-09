@@ -32,6 +32,8 @@
             <div class="col-md-8 offset-md-2 text-center">
                 <h3 class="mt-3">Welcome {{ new_user.first_name }}!</h3>
 				<hr>
+				<img class="img-responsive img-thumbnail img-medium center-block"
+                src="{% if new_user_profile.photo %}{{ new_user_profile.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">            
                 <p>Your account has been successfully created. <a class="nav-link" href="{% url "account:dashboard" %}">My Profile.</a>
             </div>
         </div>

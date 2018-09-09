@@ -41,7 +41,23 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError('Email address is already in use')
         return cd['email']
     '''
-    
+
+class ProfileCreationForm(forms.ModelForm):
+    '''
+    a model form that rely on the profile model from model.py. this form is used for editing the data in the model which is
+    empty or blank on creation
+    '''
+    class Meta:
+        model = Profile
+        fields = ('photo','contact','date_of_birth','location')
+        widgets ={
+            "contact":forms.TextInput(attrs={'label':'Phone number', 'id':'contact','name':'contact'}),
+            "date_of_birth":forms.DateInput(attrs={'label':'date_of_birth','id':'dob','name':'dob'}),
+            "location":forms.TextInput(attrs={'label':'Location','id':'location','name':'location'}),
+            "photo":forms.FileInput(attrs={'class':'form-control', 'id':'photo', 'name':'photo'}),
+        }
+        
+
 class UserEditForm(forms.ModelForm):
     #a model form that rely on the user model. this form is used to edit the initial userregistration form data listed
     class Meta:
@@ -70,6 +86,7 @@ class ProfileEditForm(forms.ModelForm):
         widgets ={
             "contact":forms.TextInput(attrs={'label':'Phone number','onblur':'validateContact(this.value)', 'id':'contact','name':'contact'}),
             "date_of_birth":forms.DateInput(attrs={'label':'date_of_birth','id':'dob','name':'dob'}),
-            "location":forms.TextInput(attrs={'label':'Location','id':'location','name':'location'}),       
+            "location":forms.TextInput(attrs={'label':'Location','id':'location','name':'location'}),
+            "photo":forms.FileInput(attrs={'class':'form-control', 'id':'photo', 'name':'photo'}),
         }
         

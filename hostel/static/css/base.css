@@ -95,6 +95,10 @@ blockquote {
 	border-left: none;
 	color: #374050;
 }
+.helptext {
+    color:#d13030;
+    font-size:13px;
+}
 
 blockquote:before{
 	content:"\f10d";

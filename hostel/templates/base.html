@@ -46,6 +46,10 @@
 			}
 		}
 		
+		function eraseLoginUsernameCookie(value){
+			eraseCookie('hostelite_username');	
+		}
+		
 				
 		function validateLoginFormData(){
             //validates the inputed data in the login form of users when login button is clicked
@@ -100,6 +104,7 @@
 			};
 			
 			//reads username cookie from system upon onload
+			//eraseLoginUsernameCookie();
 			readLoginUsernameCookie();
 		};
 		
@@ -144,9 +149,9 @@
 									<li class="nav-item">
 										<a class="nav-link" href="#">Community</a>
 			                        </li>
-									<li class="nav-item">
+									<!--<li class="nav-item">
                                         <a class="nav-link" href="{% url "logout" %}">Logout</a> 
-                                    </li>
+                                    </li>-->
 			                    </ul>
 							{% else %}
 								<form class="form-inline ml-auto pl-5" role="search" action="." method="get">
@@ -218,7 +223,7 @@
 									{% else %}
 										<h1 class="white-text text-center">Login</h1>
 									{% endif %}
-									<form name="login_form" class="white-text" action="{% url "login" %}" method="post">
+									<form name="loginform" class="white-text" action="{% url "login" %}" method="post">
 										<div class="row">
 											<div class="col-sm-10 offset-md-1">
 											    <p class="lead">{{ form.non_field_errors }}</p>
@@ -230,10 +235,10 @@
 												    <p class="lead">{{ form.username.errors }}</p>
 												</div>
 											</div>
-											<label for="{{ form.username.id_for_label }}"> Username:</label>
+											<label for="{{ form.username.id_for_label }}"> Email:</label>
 											<input type="text" name="username" id="username" class="form-control"
-											    aria-describedby="emailHelp" required="True" placeholder="Enter username or email" onchange="usernameCookie(this.value);"/>
-											<small id="emailHelp" class="form-text white-text">We'll never share your email with anyone else.</small>
+											    aria-describedby="emailHelp" required="True" placeholder="Enter your email or phone number"/>
+											<small id="emailHelp" class="form-text white-text">We'll never share your email or phone number with anyone else.</small>
 										</div>
 										<div class="form-group">
 											<div class="row">
@@ -247,7 +252,7 @@
 										</div>
 										{% csrf_token %}
 										<input type="hidden" name="next" value="{{ next }}" />
-										<input class="btn btn-primary main-button icon-button" style="margin-left: 7em" type="submit" value="Log-in" onclick="validateLoginFormData();">
+										<input id="loginform" class="btn btn-primary main-button icon-button" style="margin-left: 7em" type="submit" value="Log-in" onclick="validateLoginFormData();">
 									</form>
                     			</div>
 							</div>

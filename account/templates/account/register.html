@@ -57,21 +57,13 @@
                                 required="True" placeholder="Enter your Lastname" />
                         </div>
                     </div>
-					<p>{{ register_form.username.errors }}</p>
+					<p>{{ register_form.password1.errors }}</p>
                     <div class="form-group row">
-                        <label for="{{ register_form.username.id_for_label }}"class="col-sm-2 col-form-label">Username:</label>
+                        <label for="{{ register_form.password1.id_for_label }}"class="col-sm-2 col-form-label">Password:</label>
                         <div class="col-sm-8">
-                            <input type="text" name="username" id="username" class="form-control"
-                                required="True" placeholder="Enter a username" />
-                        </div>
-                    </div>
-					<p>{{ register_form.password.errors }}</p>
-                    <div class="form-group row">
-                        <label for="{{ register_form.password.id_for_label }}"class="col-sm-2 col-form-label">Password:</label>
-                        <div class="col-sm-8">
-                            <input type="password" name="password" id="password" class="form-control"
+                            <input type="password" name="password1" id="id_password1" class="form-control"
                                 required="True" placeholder="Enter a password" />
-                                <p>{{ register_form.password.help_text|safe }}</p>
+                                <p>{{ register_form.password1.help_text|safe }}</p>
                         </div>
                     </div>
 					<p>{{ register_form.password2.errors }}</p>
@@ -90,39 +82,40 @@
                                 required="True" placeholder="Enter your Email" />
                         </div>
                     </div>
-					<p>{{ profile_form.date_of_birth.errors }}</p>
+					<p>{{ register_form.date_of_birth.errors }}</p>
                     <div class="form-group row">
-                        <label for="{{ profile_form.date_of_birth.id_for_label }}"class="col-sm-2 col-form-label">Date of Birth:</label>
+                        <label for="{{ register_form.date_of_birth.id_for_label }}"class="col-sm-2 col-form-label">Date of Birth:</label>
                         <div class="col-sm-8">
                             <input type="date" name="dob" id="dob" class="form-control"
                                 required="True" placeholder="Date of Birth" />
                         </div>
                     </div>
-                    <p>{{ profile_form.contact.errors }}</p>
+                    <p>{{ register_form.phone_number.errors }}</p>
                     <div class="form-group row">
-                        <label for="{{ profile_form.contact.id_for_label }}"class="col-sm-2 col-form-label">Phone number(s):</label>
+                        <label for="{{ register_form.phone_number.id_for_label }}"class="col-sm-2 col-form-label">Phone number(s):</label>
                         <div class="col-sm-8">
                             <input type="text" name="contact" id="contact" class="form-control"
                                 required="True" placeholder="Phone number(s)" />
                         </div>
                     </div>
-                    <p>{{ profile_form.location.errors }}</p>
+                    <p>{{ register_form.address.errors }}</p>
                     <div class="form-group row">
-                        <label for="{{ profile_form.location.id_for_label }}"class="col-sm-2 col-form-label">Address:</label>
+                        <label for="{{ register_form.address.id_for_label }}"class="col-sm-2 col-form-label">Address:</label>
                         <div class="col-sm-8">
                             <input type="text" name="location" id="location" class="form-control"
                                 required="True" placeholder="Present address" />
                         </div>
                     </div>
-                    <p>{{ profile_form.photo.errors }}</p>
+                    <p>{{ register_form.profile_picture.errors }}</p>
                     <div class="form-group row">
-						<label for="{{ profile_form.photo.id_for_label }}"class="col-sm-2 col-form-label">Profile picture:</label>
+						<label for="{{ register_form.profile_picture.id_for_label }}"class="col-sm-2 col-form-label">Profile picture:</label>
 						<div class="col-sm-8">
-                            {{ profile_form.photo }}
+							<input type="file" name="profile_picture" id="profile_picture" class="form-control"
+								   required ="True"
                         </div>   
                     </div>
                     {% csrf_token %}
-                    <div class="col-sm-8 offset-md-2">
+                    <div class="col-sm-8 offset-md-2 mt-2">
 						<input class="btn btn-primary btn-block main-button icon-button" type="submit" value="Submit">
 					</div>
                 </form>

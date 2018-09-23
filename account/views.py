@@ -1,12 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from .forms import UserRegistrationForm ,ProfileCreationForm, UserEditForm, ProfileEditForm#, SearchForm, LandlordForm, RoomieForm
+from .forms import UserRegistrationForm #,ProfileCreationForm, UserEditForm, ProfileEditForm#, SearchForm, LandlordForm, RoomieForm
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
-from django.contrib.auth import authenticate, login
-from .models import Profile#, Landlord, Roomie
+from django.contrib.auth import authenticate, login, get_user_model
+#from .models import Profile#, Landlord, Roomie
 #from hostel.models import Hostel
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 #from haystack.query import SearchQuerySet
 
 
@@ -17,29 +17,27 @@ def dashboard(request):
     return render (request, 'account/profile.html',context)
 
 #a view for registring users through a form
+User = get_user_model()
 def register(request):
     if request.method == 'POST':
         # The form was posted
         register_form = UserRegistrationForm(request.POST)
-        #instance=request.user.profile,
-        profile_form = ProfileCreationForm(data=request.POST, files=request.FILES)
-        if register_form.is_valid() and profile_form.is_valid():
+        if register_form.is_valid():
             # Create user object but don't save to database yet
-            new_user = register_form.save(commit=False)
-            new_user_profile = profile_form.save(commit=False)
+            #new_user = register_form.save(commit=False)
             #set the choosen password
-            new_user.set_password(register_form.cleaned_data['password'])
+            #new_user.set_password(register_form.cleaned_data['password'])
             # Save the user to the database
-            new_user.save()
+            #new_user.save()
             # Create the unpopulated user profile
             #profile = Profile.objects.create(user=new_user)
-            new_user_profile.save()
-            context = {'new_user':new_user, 'new_user_profile':new_user_profile}
-            return render(request,'account/register_done.html', context)   
+            #new_user_profile.save()
+            register_form.save()
+            #context = {'new_user':new_user}
+            return render(request,'account/register_done.html')#, context)   
     else:
         register_form = UserRegistrationForm()
-        profile_form = ProfileCreationForm()
-    context = { 'register_form':register_form, 'profile_form':profile_form }
+    context = { 'register_form':register_form}
     return render(request,'account/register.html', context)
 
 

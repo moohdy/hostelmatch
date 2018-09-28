@@ -8,9 +8,10 @@ urlpatterns = [
     
     # registration urls: user registration/profile urls
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
-    url(r'^register/$', views.register, name='register'),
-    #url(r'^profile/(?P<username>[-\w]+)/$', views.profile, name='profile'),
-    url(r'^edit_profile/$', views.edit_profile, name='edit_profile'),
+    url(r'^register-user/$', views.register, name='register'),
+    url(r'^register-landlord/$', views.register_landlord, name='register_landlord'),
+     url(r'^register-roomie/$', views.register_roomie, name='register_roomie'),
+    url(r'^edit-profile/$', views.edit_profile, name='edit_profile'),
     
     # registration urls: login/logout urls
     url(r'^login/$', auth_views.login, name='login'),

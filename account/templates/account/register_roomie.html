@@ -1,0 +1,142 @@
+{% extends "hostel\hostels.html" %}
+{% load hostels_tags %}
+{%load staticfiles %}
+
+<!-- this is the page for registring users-->
+
+{% block title %}Create Account{% endblock %}
+{% block content_banner %}
+    <!-- Hero-area -->
+	<div class="hero-area section">
+		<!-- Backgound Image -->
+		<div class="bg-image bg-parallax overlay" style="background-image:url(/static/img/blog-post-background.jpg)"></div>
+		<!-- /Backgound Image -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 offset-md-1 text-center">
+					<ul class="hero-area-tree">
+						<li><a href="{% url "hostel:about_hostelite"%}">About</a></li>
+						<li><a href="#contact_us">Contact us</a></li>
+						<li>How to Get Started on HosteLite</li>
+					</ul>
+					<h1 class="white-text">How to Get Started on Hostelite</h1>
+					<ul class="blog-post-meta">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Hero-area -->
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 mt-3 text-center">
+                {% if form.errors %}	
+					<h2 class="mt-3"> Please check and try again.</h2>
+				{% else %}
+                    <h2 class="mt-3">Create Account</h2>
+                    <hr>
+                {% endif %}
+                <form name="register_roomie" enctype="multipart/form-data" action="." method="post" role="form">
+					<p>{{ register_roomie.non_field_errors }}</p>
+					<p>{{ register_roomie.address.errors }}</p>
+                    <div class="form-group row">
+                        <label for="{{ register_roomie.address.id_for_label }}"class="col-sm-2 col-form-label">Address:</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="address" id="address" class="form-control"
+                                required="True" placeholder="Enter hostel address" />
+                        </div>
+                    </div>
+					<p>{{ register_roomie.duration.errors }}</p>
+                    <div class="form-group row">
+                        <label for="{{ register_roomie.duration.id_for_label }}"class="col-sm-2 col-form-label">Duration:</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="duration" id="duration" class="form-control"
+                                required="True" placeholder="Enter duration of stay" />
+                        </div>
+                    </div>
+					<p>{{ register_roomie.agreement.errors }}</p>
+                    <div class="form-group row">
+                        <label for="{{ register_roomie.agreement.id_for_label }}"class="col-sm-2 col-form-label">Agreement:</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="agreement" id="agreement" class="form-control"
+                                required="True" placeholder="sign agreement" />
+                        </div>
+                    </div>
+					<p>{{ register_roomie.payment.errors }}</p>
+					<div class="form-group row">
+                        <label for="{{ register_roomie.payment.id_for_label }}"class="col-sm-2 col-form-label">Payment:</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="payment" id="payment" class="form-control"
+                                required="True" placeholder="payment" />
+                        </div>
+                    </div>
+					<p>{{ register_roomie.photo1.errors }}</p>
+					<div class="input-group mb-3">
+						<label for="{{ register_roomie.photo1.id_for_label }}"class="col-sm-2 col-form-label">hostel photos1:</label>
+						<div class="custom-file col-sm-8">
+							{{register_roomie.photo1}}
+						</div>
+					</div>
+					<p>{{ register_roomie.photo2.errors }}</p>
+					<div class="input-group mb-3">
+						<label for="{{ register_roomie.photo2.id_for_label }}"class="col-sm-2 col-form-label">hostel photos1:</label>
+						<div class="col-sm-8">
+							{{register_roomie.photo2}}
+						</div>
+					</div>
+					<p>{{ register_roomie.photo3.errors }}</p>
+					<div class="input-group mb-3">
+						<label for="{{ register_roomie.photo3.id_for_label }}"class="col-sm-2 col-form-label">hostel photos1:</label>
+						<div class="custom-file col-sm-8">
+							{{register_roomie.photo3}}
+						</div>
+					</div>
+					<p>{{ register_roomie.photo4.errors }}</p>
+					<div class="input-group mb-3">
+						<label for="{{ register_roomie.photo4.id_for_label }}"class="col-sm-2 col-form-label">hostel photos1:</label>
+						<div class="custom-file col-sm-8">
+							<input type="file" class="custom-file-input" name="photo4" id="id_photo4" >
+								<label class="custom-file-label" for="photo4">Choose file</label>
+						</div>
+					</div>
+					<p>{{ register_roomie.photo5.errors }}</p>
+					<div class="input-group mb-3">
+						<label for="{{ register_roomie.photo5.id_for_label }}"class="col-sm-2 col-form-label">hostel photos1:</label>
+						<div class="custom-file col-sm-8">
+							<input type="file" class="custom-file-input" name="photo5" id="id_photo5" >
+								<label class="custom-file-label" for="photo5">Choose file</label>
+						</div>
+					</div>
+                    {% csrf_token %}
+                    <div class="col-sm-8 offset-md-2 mt-2">
+						<input class="btn btn-primary btn-block main-button icon-button" type="submit" value="Submit">
+					</div>
+                </form>
+            </div>
+			<script type="text/javascript">
+				$('.custom-file-input').on('change', function() { 
+					let fileName = $(this).val().split('\\').pop(); 
+					$(this).next('.custom-file-label').addClass("selected").html(fileName); 
+				});
+			</script>
+        </div>
+        <div class="row">
+			<div class="col-md-8 offset-md-2">
+				<ul class="nav footer-nav  justify-content-center mt-3 mb-3">
+					<li class="nav-item">
+						<a class="nav-link active" href="{% url "hostel:homepage" %}">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url "hostel:about_hostelite" %}">About</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Community</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+    </div>
+{% endblock %}

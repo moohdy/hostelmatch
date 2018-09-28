@@ -89,7 +89,11 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+'''
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: reverse_lazy('account:dashboard',args=[u.email])
+}
+'''
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

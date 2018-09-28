@@ -99,6 +99,7 @@ blockquote {
     color:#d13030;
     font-size:13px;
 }
+.img-medium{width: 300px; height: 300px;}
 
 blockquote:before{
 	content:"\f10d";

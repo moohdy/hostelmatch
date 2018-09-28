@@ -2,7 +2,13 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
+from django.utils import timezone
+from django.core.urlresolvers import reverse
+from django.utils.text import slugify
+from django.conf import settings
+
 from phone_field import PhoneField
+
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -108,30 +114,51 @@ class User(AbstractBaseUser):
         "Is the user active?"
         return self.active
     
+class Landlord(models.Model):
+    '''
+    the lanlord model for landlord users
+    '''
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='landlords',on_delete=models.CASCADE)
+    property_name = models.CharField(max_length=200)
+    slug = models.SlugField(unique_for_date='reg_date', blank=True )
+    reg_date = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return '{}'.format(self.property_name)
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.property_name)
+            #self.user = request.user
+            super(Landlord, self).save(*args, **kwargs)
 '''
-from django.db import models
-from django.conf import settings
+    def get_absolute_url(self):
+        return reverse('account:reg_landlord', args=[self.property_name])
+'''
 
-
-class Profile(models.Model):
-    
-    the profile model used for creating the database and also used as model for a the profileform
-    
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='users/%Y/%m/%d', blank=True)
-    contact = models.PositiveIntegerField(blank=True, null=True, unique=True)
-    date_of_birth = models.DateField(blank=True, null=True)
-    location = models.CharField( max_length=250, blank=True, null=True)
+class Roomie(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='Roommate', on_delete=models.CASCADE)
+    address = models.CharField(max_length=250)
+    duration = models.CharField(max_length=250)
+    agreement = models.CharField(max_length=1000)
+    photo1 = models.ImageField(upload_to='roomies/%Y/%m/%d')
+    photo2 = models.ImageField(upload_to='roomies/%Y/%m/%d')
+    photo3 = models.ImageField(upload_to='roomies/%Y/%m/%d')
+    photo4 = models.ImageField(upload_to='roomies/%Y/%m/%d', null =True, blank=True)
+    photo5 = models.ImageField(upload_to='roomies/%Y/%m/%d', null =True, blank=True)
+    payment = models.CharField(max_length=250)
+    slug = models.SlugField(unique_for_date='reg_date', blank=True )
     reg_date = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        ordering = ('reg_date',)
-
     def __str__(self):
-        return 'Profile for user {}'.format(self.user.username)
-
-    def get_absolute_url(self):
-        return reverse('registration:profile', args=[self.user.username])
-
+        return '{} {}'.format(self.user.first_name, self.user.last_name )
     
-'''
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.address)
+            #self.user = request.user
+            super(Roomie, self).save(*args, **kwargs)
+    '''
+    def get_absolute_url(self):
+        return reverse('account:reg_landlord', args=[self.property_name])
+    '''

@@ -34,6 +34,7 @@
 				<hr>
 				<img class="img-responsive img-thumbnail img-medium center-block"
                 src="{% if new_user.profile_picture %}{{ new_user.profile_picture.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">            
+                <p>{{request.user.first_name}}</p>
                 <p>Your account has been successfully created. <a class="nav-link" href="{% url "account:dashboard" %}">My Profile.</a>
             </div>
         </div>

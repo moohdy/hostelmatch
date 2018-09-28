@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-
-from .models import User
+from .models import User, Landlord, Roomie
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -74,6 +73,19 @@ class UserAdminChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
+
+class LandlordRegistrationForm(forms.ModelForm):
+    #a model form for registering landlord 
+    class Meta:
+        model = Landlord
+        fields = ('property_name',)
+
+class RoomieRegistrationForm(forms.ModelForm):
+    #a model form for registering landlord 
+    class Meta:
+        model = Roomie
+        fields = ('address', 'duration', 'agreement','payment', 'photo1','photo2','photo3','photo4','photo5',)
+
 
 '''
 from django.contrib.auth.models import User

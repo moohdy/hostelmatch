@@ -38,5 +38,5 @@ class Hostel(models.Model):
     def get_absolute_url(self):
         return reverse('hostel:hostel_detail',
                        args=[self.created.year, self.created.strftime('%m'), self.created.strftime('%d'),
-                             self.slug, self.locaton])
+                             self.slug, self.location])
 
